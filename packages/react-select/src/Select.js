@@ -158,6 +158,8 @@ export type Props = {
   isDisabled: boolean,
   /* Is the select in a state of loading (async) */
   isLoading: boolean,
+  /* Is the select required */
+  isRequired: boolean,
   /*
     Override the built-in logic to detect whether an option is disabled
 
@@ -261,6 +263,7 @@ export const defaultProps = {
   isDisabled: false,
   isLoading: false,
   isMulti: false,
+  isRequired: false,
   isRtl: false,
   isSearchable: true,
   isOptionDisabled: isOptionDisabled,
@@ -1393,6 +1396,7 @@ export default class Select extends Component<Props, State> {
   renderInput() {
     const {
       isDisabled,
+      isRequired,
       isSearchable,
       inputId,
       inputValue,
@@ -1420,6 +1424,7 @@ export default class Select extends Component<Props, State> {
           onChange={noop}
           onFocus={this.onInputFocus}
           readOnly
+          required={isRequired}
           disabled={isDisabled}
           tabIndex={tabIndex}
           value=""
@@ -1441,6 +1446,7 @@ export default class Select extends Component<Props, State> {
         innerRef={this.getInputRef}
         isDisabled={isDisabled}
         isHidden={inputIsHidden}
+        isRequired={isRequired}
         onBlur={this.onInputBlur}
         onChange={this.handleInputChange}
         onFocus={this.onInputFocus}
@@ -1467,6 +1473,7 @@ export default class Select extends Component<Props, State> {
     const {
       controlShouldRenderValue,
       isDisabled,
+      isRequired,
       isMulti,
       inputValue,
       placeholder,
@@ -1480,6 +1487,7 @@ export default class Select extends Component<Props, State> {
           key="placeholder"
           isDisabled={isDisabled}
           isFocused={isFocused}
+          isRequired={isRequired}
         >
           {placeholder}
         </Placeholder>
@@ -1500,6 +1508,7 @@ export default class Select extends Component<Props, State> {
             }}
             isFocused={isOptionFocused}
             isDisabled={isDisabled}
+            isRequired={isRequired}
             key={this.getOptionValue(opt)}
             index={index}
             removeProps={{
@@ -1525,7 +1534,7 @@ export default class Select extends Component<Props, State> {
 
     const singleValue = selectValue[0];
     return (
-      <SingleValue {...commonProps} data={singleValue} isDisabled={isDisabled}>
+      <SingleValue {...commonProps} data={singleValue} isDisabled={isDisabled} isRequired={isRequired}>
         {this.formatOptionLabel(singleValue, 'value')}
       </SingleValue>
     );

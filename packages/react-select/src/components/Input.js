@@ -14,6 +14,8 @@ export type InputProps = PropsWithStyles & {
   isHidden: boolean,
   /** Whether the input is disabled */
   isDisabled?: boolean,
+  /** Whether the input is required */
+  isRequired?: boolean,
   className?: string,
 };
 
@@ -45,6 +47,7 @@ const Input = ({
   innerRef,
   isHidden,
   isDisabled,
+  isRequired,
   theme,
   selectProps,
   ...props
@@ -55,6 +58,7 @@ const Input = ({
       inputRef={innerRef}
       inputStyle={inputStyle(isHidden)}
       disabled={isDisabled}
+      required={isRequired}
       {...props}
     />
   </div>
